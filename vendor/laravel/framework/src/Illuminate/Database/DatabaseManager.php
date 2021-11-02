@@ -2,12 +2,12 @@
 
 namespace Illuminate\Database;
 
-use PDO;
+use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\ConfigurationUrlParser;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Support\ConfigurationUrlParser;
-use Illuminate\Database\Connectors\ConnectionFactory;
+use PDO;
 
 /**
  * @mixin \Illuminate\Database\Connection
@@ -62,7 +62,7 @@ class DatabaseManager implements ConnectionResolverInterface
         $this->factory = $factory;
 
         $this->reconnector = function ($connection) {
-            $this->reconnect($connection->getName());
+            $this->reconnect($connection->getNameWithReadWriteType());
         };
     }
 
@@ -149,7 +149,7 @@ class DatabaseManager implements ConnectionResolverInterface
         $connections = $this->app['config']['database.connections'];
 
         if (is_null($config = Arr::get($connections, $name))) {
-            throw new InvalidArgumentException("Database [{$name}] not configured.");
+            throw new InvalidArgumentException("Database connection [{$name}] not configured.");
         }
 
         return (new ConfigurationUrlParser)
@@ -165,13 +165,17 @@ class DatabaseManager implements ConnectionResolverInterface
      */
     protected function configure(Connection $connection, $type)
     {
-        $connection = $this->setPdoForType($connection, $type);
+        $connection = $this->setPdoForType($connection, $type)->setReadWriteType($type);
 
         // First we'll set the fetch mode and a few other dependencies of the database
         // connection. This method basically just configures and prepares it to get
         // used by the application. Once we're finished we'll return it back out.
         if ($this->app->bound('events')) {
             $connection->setEventDispatcher($this->app['events']);
+        }
+
+        if ($this->app->bound('db.transactions')) {
+            $connection->setTransactionManager($this->app['db.transactions']);
         }
 
         // Here we'll set a reconnector callback. This reconnector can be any callable
@@ -246,6 +250,24 @@ class DatabaseManager implements ConnectionResolverInterface
     }
 
     /**
+     * Set the default database connection for the callback execution.
+     *
+     * @param  string  $name
+     * @param  callable  $callback
+     * @return mixed
+     */
+    public function usingConnection($name, callable $callback)
+    {
+        $previousName = $this->getDefaultConnection();
+
+        $this->setDefaultConnection($name);
+
+        return tap($callback(), function () use ($previousName) {
+            $this->setDefaultConnection($previousName);
+        });
+    }
+
+    /**
      * Refresh the PDO connections on a given connection.
      *
      * @param  string  $name
@@ -253,11 +275,15 @@ class DatabaseManager implements ConnectionResolverInterface
      */
     protected function refreshPdoConnections($name)
     {
-        $fresh = $this->makeConnection($name);
+        [$database, $type] = $this->parseConnectionName($name);
+
+        $fresh = $this->configure(
+            $this->makeConnection($database), $type
+        );
 
         return $this->connections[$name]
-                                ->setPdo($fresh->getPdo())
-                                ->setReadPdo($fresh->getReadPdo());
+                    ->setPdo($fresh->getRawPdo())
+                    ->setReadPdo($fresh->getRawReadPdo());
     }
 
     /**
@@ -307,7 +333,7 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Register an extension connection resolver.
      *
-     * @param  string    $name
+     * @param  string  $name
      * @param  callable  $resolver
      * @return void
      */
@@ -338,10 +364,23 @@ class DatabaseManager implements ConnectionResolverInterface
     }
 
     /**
+     * Set the application instance used by the manager.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return $this
+     */
+    public function setApplication($app)
+    {
+        $this->app = $app;
+
+        return $this;
+    }
+
+    /**
      * Dynamically pass methods to the default connection.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
