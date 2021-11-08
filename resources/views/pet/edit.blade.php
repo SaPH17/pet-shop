@@ -10,7 +10,7 @@
                         <p class="card-title h2 mt-4 mb-5 font-weight-bold">
                             Edit Pet
                         </p>
-                        <form action="/pet/{{$pet->id}}/edit" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('pet.update', ['pet', $pet]) }}" method="post" enctype="multipart/form-data">
                             @method('patch')
                             @csrf
                             <div class="form-group row">

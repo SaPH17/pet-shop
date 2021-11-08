@@ -65,17 +65,17 @@ class PetCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PetCategory  $petCategory
+     * @param  \App\Models\PetCategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(PetCategory $petCategory)
+    public function show(PetCategory $category)
     {
-        $pets = Pet::where('pet_category_id', 1)->paginate(6);
+        $pets = Pet::where('pet_category_id', $category->id)->paginate(6);
         if(request()->has('pet-search') && request()->get('pet-search') != ""){
             $search = request()->get('pet-search');
             $pets = Pet::where([
                         ['name', 'like', "%".$search."%"],
-                        ['pet_category_id', '=', $petCategory->id]
+                        ['pet_category_id', '=', $category->id]
                     ])->paginate(8);
         }
 
@@ -85,12 +85,12 @@ class PetCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PetCategory  $petCategory
+     * @param  \App\Models\PetCategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(PetCategory $petCategory)
+    public function edit(PetCategory $category)
     {
-        $pet_category = $petCategory;
+        $pet_category = $category;
         return view('pet-category.edit', compact('pet_category'));
     }
 
@@ -98,10 +98,10 @@ class PetCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PetCategory  $petCategory
+     * @param  \App\Models\PetCategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PetCategory $petCategory)
+    public function update(Request $request, PetCategory $category)
     {
         $validated = $request->validate([
             'name' => 'required|max:20',
@@ -111,13 +111,13 @@ class PetCategoryController extends Controller
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
         $request->file('image')->storeAs('category', $imageName);
 
-        if (Storage::exists('category/' . $petCategory->image)){
-            Storage::delete('category/' . $petCategory->image);
+        if (Storage::exists('category/' . $category->image)){
+            Storage::delete('category/' . $category->image);
         }
 
         $validated['image'] = $imageName;
 
-        $petCategory->update($validated);
+        $category->update($validated);
 
         return redirect()->route('home');
     }
@@ -125,12 +125,12 @@ class PetCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PetCategory  $petCategory
+     * @param  \App\Models\PetCategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PetCategory $petCategory)
+    public function destroy(PetCategory $category)
     {
-        $petCategory->delete();
+        $category->delete();
         return redirect()->route('home');
     }
 }

@@ -15,14 +15,14 @@
                     @csrf
 
                     <div class="flex flex-wrap">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Name') }}:
+                        <label for="username" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Username') }}:
                         </label>
 
-                        <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        <input id="username" type="text" class="form-input w-full @error('username')  border-red-500 @enderror"
+                            name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
-                        @error('name')
+                        @error('username')
                         <p class="text-red-500 text-xs italic mt-4">
                             {{ $message }}
                         </p>
@@ -39,6 +39,52 @@
                             value="{{ old('email') }}" required autocomplete="email">
 
                         @error('email')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="gender" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Gender') }}:
+                        </label>
+
+                        <input id="gender" type="text"
+                            class="form-input w-full @error('gender') border-red-500 @enderror" name="gender"
+                            required>
+
+                        @error('gender')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Phone Number') }}:
+                        </label>
+
+                        <input id="phone_number" type="text"
+                            class="form-input w-full @error('phone_number') border-red-500 @enderror" name="phone_number"
+                            required>
+
+                        @error('phone_number')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="address" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Address') }}:
+                        </label>
+
+                        <textarea class="form-input w-full @error('address') border-red-500 @enderror" name="address" id="address"></textarea>
+
+                        @error('address')
                         <p class="text-red-500 text-xs italic mt-4">
                             {{ $message }}
                         </p>

@@ -18,8 +18,8 @@
                         {{$pet->description}}
                     </p>                
 
-                    @if(auth()->check() && auth()->user()->email != 'admin@admin.com')
-                        <form action="/pet/{{$pet->id}}" method="post" class="mt-auto">
+                    @cannot('manage-data')
+                        <form action="{{ route('cart.store') }}" method="post" class="mt-auto">
                             @csrf
                             <input type="hidden" value="{{$pet->id}}" name="pet_id">
                             <div class="mb-3 flex items-center">
@@ -29,7 +29,7 @@
 
                             <button type="submit" class="p-3 hover:bg-blue-700 duration-200 bg-blue-500 text-white rounded-md">Add to Cart</button>
                         </form>
-                    @endif
+                    @endcan
                 </div>
             </div>
             <div class="mt-8">
