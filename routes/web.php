@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\PetCategoryController;
+use App\Http\Controllers\PetController;
+use App\Http\Controllers\TransactionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +23,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('cart', CartController::class);
+    Route::resource('transaction', TransactionController::class);
+});
+
+Route::resource('category', PetCategoryController::class);
+Route::resource('pet', PetController::class);
 
