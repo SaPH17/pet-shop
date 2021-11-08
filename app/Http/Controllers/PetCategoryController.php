@@ -70,14 +70,13 @@ class PetCategoryController extends Controller
      */
     public function show(PetCategory $petCategory)
     {
-        $pets = Pet::where('pet_category_id', $petCategory->id)->paginate(4);
-
+        $pets = Pet::where('pet_category_id', 1)->paginate(6);
         if(request()->has('pet-search') && request()->get('pet-search') != ""){
             $search = request()->get('pet-search');
             $pets = Pet::where([
                         ['name', 'like', "%".$search."%"],
                         ['pet_category_id', '=', $petCategory->id]
-                    ])->paginate(4);
+                    ])->paginate(8);
         }
 
         return view('pet-category.show', compact('pets'));
