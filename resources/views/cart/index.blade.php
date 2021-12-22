@@ -11,8 +11,7 @@
                         Rp. {{ $cart->pet->price}}
                     </p>
 
-                    <form method="post" action="{{ route('cart.create') }}">
-                        @method('patch')
+                    <form method="post" action="{{ route('cart.store') }}">
                         @csrf
                         <input type="hidden" name="pet_id" value="{{ $cart->pet_id }}">
                         <div class="form-group row">

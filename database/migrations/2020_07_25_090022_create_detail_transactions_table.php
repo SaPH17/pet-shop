@@ -14,8 +14,8 @@ class CreateDetailTransactionsTable extends Migration
     public function up()
     {
         Schema::create('detail_transactions', function (Blueprint $table) {
-            $table->foreignId('transaction_id')->constrained();
-            $table->foreignId('pet_id')->constrained();
+            $table->foreignUuid('transaction_id')->constrained();
+            $table->foreignUuid('pet_id')->constrained();
             $table->integer('quantity');
             $table->primary(['transaction_id', 'pet_id']);
             $table->timestamps();

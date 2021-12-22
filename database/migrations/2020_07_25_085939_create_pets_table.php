@@ -14,9 +14,9 @@ class CreatePetsTable extends Migration
     public function up()
     {
         Schema::create('pets', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignId('pet_category_id')->constrained();
+            $table->foreignUuid('pet_category_id')->constrained();
             $table->bigInteger('price');
             $table->string('description');
             $table->string('image');
