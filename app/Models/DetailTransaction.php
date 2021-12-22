@@ -10,6 +10,7 @@ class DetailTransaction extends Model
     use HasFactory;
     
     protected $guarded = [];
+    public $incrementing = false;
 
     public function transaction(){
         return $this->belongsTo(Transaction::class);

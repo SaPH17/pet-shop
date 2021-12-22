@@ -14,23 +14,21 @@ class PetCategorySeeder extends Seeder
      */
     public function run()
     {
-        PetCategory::insert([
-            [
-                'name' => 'Dog',
-                'image' => 'dog.jpg'
-            ],
-            [
-                'name' => 'Cat',
-                'image' => 'cat.jpg'
-            ],
-            [
-                'name' => 'Bird',
-                'image' => 'bird.jpg'
-            ],
-            [
-                'name' => 'Small Pet',
-                'image' => 'hamster.jpg'
-            ]
+        PetCategory::create([
+            'name' => 'Dog',
+            'image' => 'dog.jpg'
+        ]);
+        PetCategory::create([
+            'name' => 'Cat',
+            'image' => 'cat.jpg'
+        ]);
+        PetCategory::create([
+            'name' => 'Bird',
+            'image' => 'bird.jpg'
+        ]);
+        PetCategory::create([
+            'name' => 'Small Pet',
+            'image' => 'hamster.jpg'
         ]);
     }
 }

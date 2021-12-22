@@ -35,7 +35,7 @@ class PetCategoryController extends Controller
      */
     public function create()
     {
-        return view('pet-category.add');
+        return view('pet-category.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class PetCategoryController extends Controller
         ]);
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
-        $request->file('image')->storeAs('category', $imageName);
+        $request->file('image')->storeAs('public/category', $imageName);
 
         PetCategory::create([
             'name' => $validated['name'],
@@ -129,6 +129,9 @@ class PetCategoryController extends Controller
      */
     public function destroy(PetCategory $category)
     {
+        if (Storage::exists('public/category/' . $category->image)){
+            Storage::delete('public/category/' . $category->image);
+        }
         $category->delete();
         return redirect()->route('home');
     }

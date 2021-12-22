@@ -18,7 +18,7 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', '=', Auth::user()->id)->get();
 
-        return view('cart', compact('carts'));
+        return view('cart.index', compact('carts'));
     }
 
     /**
@@ -44,10 +44,14 @@ class CartController extends Controller
             'pet_id' => 'exists:pets,id',
         ]);
 
-        $validated['user_id'] = Auth::user()->id;
-        Cart::create($validated);
-
-        return redirect()->route('home');
+        if ($request->quantity == 0){
+            Cart::where([['user_id', Auth::user()->id], ['pet_id', $validated['pet_id']]])->delete();
+        } else {
+            Cart::upsert([[
+                'user_id' => Auth::user()->id, 'pet_id' => $validated['pet_id'], 'quantity' => $validated['quantity']
+            ]], ['user_id', 'pet_id'], ['quantity']);
+        }
+        return redirect()->route('cart.index');
     }
 
     /**
@@ -81,13 +85,7 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        $validated = $request->validate([
-            'quantity' => 'required|integer|min:1'
-        ]);
-
-        $cart->update($validated);
-
-        return redirect()->route('cart.index');
+        
     }
 
     /**

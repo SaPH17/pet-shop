@@ -14,8 +14,8 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('pet_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('pet_id')->constrained();
             $table->primary(['user_id', 'pet_id']);
             $table->integer('quantity');
             $table->timestamps();
