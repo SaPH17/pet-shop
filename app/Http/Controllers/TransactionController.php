@@ -19,7 +19,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        if (Gate::allows('manage-data')) {
+        if (request()->user()->can('manage-data')) {
             $transactions = Transaction::all();
         } else {
             $transactions = Transaction::where('user_id', Auth::user()->id)->get();
@@ -55,9 +55,11 @@ class TransactionController extends Controller
         $result = [];
 
         foreach($carts as $cart){
-            $data['id'] = $transaction->id;
+            $data['transaction_id'] = $transaction->id;
             $data['pet_id'] = $cart->pet_id;
             $data['quantity'] = $cart->quantity;
+            $data['created_at'] = now();
+            $data['updated_at'] = now();
             array_push($result, $data);
         }
 

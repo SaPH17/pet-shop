@@ -36,8 +36,13 @@
                     @else
                         <div class="flex items-center flex justify-between flex-1">
                             <div class="flex flex-row items-center space-x-2">
-                                <a href="{{ route('pet.create') }}" class="p-2">Add Pet</a>
-                                <a href="{{ route('category.create') }}" class="p-2">Add Category</a>
+                                @can('manage-data')
+                                    <a href="{{ route('pet.create') }}" class="p-2">Add Pet</a>
+                                    <a href="{{ route('category.create') }}" class="p-2">Add Category</a>
+                                @else
+                                    <a href="{{ route('cart.index') }}" class="p-2">Cart</a>
+                                    <a href="{{ route('transaction.index') }}" class="p-2">Transaction</a>
+                                @endcan
                             </div>
                             <div class="flex flex-row items-center">
                                 <a href="{{ route('logout') }}"

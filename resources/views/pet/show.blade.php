@@ -5,7 +5,7 @@
         <div class="flex flex-col p-8 shadow-md bg-white rounded-md">
             <div class="flex flex-row">
                 <div>
-                    <img class="h-72 object-cover rounded-lg" src="/asset/{{$pet->image}}" alt="">
+                    <img class="h-72 object-cover rounded-lg" src="{{ Storage::url('public/pet/' . $pet->image) }}" alt="">
                 </div>
                 <div class="mx-5 w-100 flex flex-col">
                     <p class="text-3xl font-bold">
