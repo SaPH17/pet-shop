@@ -23,7 +23,7 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="quantity">Quantity : </label>
                             <div class="col-md-6">
-                                <input id="quantity" type="number" class="form-control" name="quantity">
+                                <input id="quantity" type="number" class="form-input" name="quantity">
                             </div>
                         </div>
                         <button class="btn btn-primary d-inline-flex">Update Quantity</button>

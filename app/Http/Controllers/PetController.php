@@ -33,7 +33,8 @@ class PetController extends Controller
      */
     public function create()
     {
-        return view('pet.create');
+        $categories = PetCategory::all();
+        return view('pet.create', compact('categories'));
     }
 
     /**
@@ -53,12 +54,12 @@ class PetController extends Controller
         ]);
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
-        $request->file('image')->storeAs('pet', $imageName);
+        $request->file('image')->storeAs('public/pet', $imageName);
         $validated['image'] = $imageName;
 
         Pet::create($validated);
 
-        return redirect('/home');
+        return redirect()->route('home');
     }
 
     /**
@@ -121,6 +122,9 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
+        if (Storage::exists('public/pet/' . $pet->image)){
+            Storage::delete('public/pet/' . $pet->image);
+        }
         $pet->delete();
         return redirect()->route('home');
     }
