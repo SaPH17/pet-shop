@@ -85,14 +85,7 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        dd('here');
-        $validated = $request->validate([
-            'quantity' => 'required|integer|min:1'
-        ]);
-
-        $cart->update($validated);
-
-        return redirect()->route('cart.index');
+        
     }
 
     /**
