@@ -25,19 +25,21 @@
             @foreach($pets as $pet)
                 <a href="{{ route('pet.show', ['pet' => $pet]) }}" class="flex flex-col rounded-lg shadow-md duration-150 overflow-hidden hover:shadow-xl">
                     <div class="flex-shrink-0">
-                        <img class="h-60 w-full object-cover" src="/asset/{{$pet->image}}" alt="">
+                        <img class="h-60 w-full object-cover" src="{{ Storage::url('public/pet/' . $pet->image) }}" alt="">
                     </div>
                     <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-                        <div class="flex-1">
+                        <div class="flex-1 flex flex-col space-y-2">
                             <p class="text-xl font-semibold text-gray-900 text-center">
                                 {{$pet->name}}
                             </p>
                             @can('manage-data')
-                                <a href="{{ route('pet.edit', ['pet' => $pet]) }}" class="btn btn-primary mr-4">Update Pet</a>
+                                <form action="{{ route('pet.edit', ['pet' => $pet]) }}" class="w-full">
+                                    <button class="bg-blue-500 text-white px-4 py-2 w-full rounded" type="submit">Update Pet</button>
+                                </form>
                                 <form method="post" action="{{ route('pet.destroy', ['pet' => $pet]) }}">
                                     @method('delete')
                                     @csrf
-                                    <button class="btn btn-danger">Delete Pet</button>
+                                    <button class="bg-red-500 text-white px-4 py-2 w-full rounded" type="submit">Delete Pet</button>
                                 </form>
                             @endcan
                         </div>

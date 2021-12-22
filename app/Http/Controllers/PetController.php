@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Http\Controllers\Controller;
+use App\Models\PetCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ class PetController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'can:manage-data'])->except(['show', 'index']);
+        $this->middleware(['auth', 'can:manage-data'])->except(['index']);
     }
     
     /**
@@ -45,8 +46,8 @@ class PetController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20',
-            'pet_category_id' => 'required|exists:pet_categories,id',
-            'price' => 'required|min:5',
+            'pet_category_id' => 'integer|required|exists:pet_categories,id',
+            'price' => 'integer|required|min:5',
             'description' => 'required|min:20',
             'image' => 'required|mimes:png,jpg'
         ]);
@@ -79,7 +80,8 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        return view('pet.edit', compact('pet'));
+        $categories = PetCategory::all();
+        return view('pet.edit', compact('pet', 'categories'));
     }
 
     /**
@@ -93,18 +95,17 @@ class PetController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20',
-            'pet_category_id' => 'required|exists:pet_categories,id',
-            'price' => 'required|min:5',
+            'pet_category_id' => 'integer|required|exists:pet_categories,id',
+            'price' => 'integer|required|min:5',
             'description' => 'required|min:20',
             'image' => 'required|mimes:png,jpg'
         ]);
-
-        if (Storage::exists('pet/' . $pet->image)){
-            Storage::delete('pet/' . $pet->image);
-        }
-
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
-        $request->file('image')->storeAs('pet', $imageName);
+        $request->file('image')->storeAs('public/pet', $imageName);
+
+        if (Storage::exists('public/pet/' . $pet->image)){
+            Storage::delete('public/pet/' . $pet->image);
+        }
         $validated['image'] = $imageName;
 
         $pet->update($validated);

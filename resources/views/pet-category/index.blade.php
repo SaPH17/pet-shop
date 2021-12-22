@@ -11,25 +11,25 @@
         </div>
 
         <div class="grid gap-4 grid-cols-3 mt-5">
-            @foreach($pet_categories as $pet_category)
-                <a href="{{ route('category.show', ['category' => $pet_category]) }}" class="flex flex-col rounded-lg shadow-md duration-150 overflow-hidden hover:shadow-xl">
+            @foreach($categories as $category)
+                <a href="{{ route('category.show', ['category' => $category]) }}" class="flex flex-col rounded-lg shadow-md duration-150 overflow-hidden hover:shadow-xl">
                     <div class="flex-shrink-0">
-                        <img class="h-60 w-full object-cover" src="/asset/{{$pet_category->image}}" alt="">
+                        <img class="h-60 w-full object-cover" src="{{ Storage::url('category/' . $category->image)}}" alt="">
                     </div>
                     <div class="flex-1 bg-white p-6 flex flex-col">
                         <div class="flex-1 flex flex-col space-y-2">
                             <p class="text-xl font-semibold text-gray-900 text-center">
-                                {{$pet_category->name}}
+                                {{$category->name}}
                             </p>
 
                             @can('manage-data')
-                            <form action="{{ route('category.edit', ['category' => $pet_category]) }}" class="w-full">
+                            <form action="{{ route('category.edit', ['category' => $category]) }}" class="w-full">
                                 <button class="bg-blue-500 text-white px-4 py-2 w-full rounded" type="submit">Update Category</button>
                             </form>
-                            <form method="post" action="{{ route('category.destroy', ['category' => $pet_category]) }}" class="w-full">
+                            <form method="post" action="{{ route('category.destroy', ['category' => $category]) }}" class="w-full">
                                 @method('delete')
                                 @csrf
-                                <button class="bg-red-500 text-white px-4 py-2 w-full rounded">Delete Category</button>
+                                <button class="bg-red-500 text-white px-4 py-2 w-full rounded" type="submit">Delete Category</button>
                             </form>
                             @endcan
 
@@ -41,7 +41,7 @@
 
         <div class="d-flex justify-content-center">
             <div>
-                {{$pet_categories->links()}}
+                {{$categories->links()}}
             </div>
         </div>
 

@@ -23,9 +23,9 @@ class PetCategoryController extends Controller
      */
     public function index()
     {
-        $pet_categories = PetCategory::paginate(4);
+        $categories = PetCategory::paginate(4);
 
-        return view('pet-category.index', compact('pet_categories'));
+        return view('pet-category.index', compact('categories'));
     }
 
     /**
@@ -76,7 +76,7 @@ class PetCategoryController extends Controller
             $pets = Pet::where([
                         ['name', 'like', "%".$search."%"],
                         ['pet_category_id', '=', $category->id]
-                    ])->paginate(8);
+                    ])->paginate(8)->withQueryString();
         }
 
         return view('pet-category.show', compact('pets'));
@@ -90,8 +90,7 @@ class PetCategoryController extends Controller
      */
     public function edit(PetCategory $category)
     {
-        $pet_category = $category;
-        return view('pet-category.edit', compact('pet_category'));
+        return view('pet-category.edit', compact('category'));
     }
 
     /**
@@ -109,10 +108,10 @@ class PetCategoryController extends Controller
         ]);
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
-        $request->file('image')->storeAs('category', $imageName);
+        $request->file('image')->storeAs('public/category', $imageName);
 
-        if (Storage::exists('category/' . $category->image)){
-            Storage::delete('category/' . $category->image);
+        if (Storage::exists('public/category/' . $category->image)){
+            Storage::delete('public/category/' . $category->image);
         }
 
         $validated['image'] = $imageName;

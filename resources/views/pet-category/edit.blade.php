@@ -5,18 +5,17 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-inline-flex w-100">
-{{--                    @dd($pet_category)--}}
                     <div class="mx-5 w-100">
                         <p class="card-title h2 mt-4 mb-5 font-weight-bold">
                             Edit Pet Category
                         </p>
-                        <form action="/category/{{$pet_category->id}}/edit" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('category.update', compact('category')) }}" method="post" enctype="multipart/form-data">
                             @method('patch')
                             @csrf
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label" for="name">Category Name : </label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name">
+                                    <input id="name" type="text" class="form-input @error('name') is-invalid @enderror" name="name" required>
 
                                 </div>
                             </div>
@@ -24,12 +23,12 @@
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label" for="image">Category Image : </label>
                                 <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                    <input id="image" type="file" class="form-input @error('image') is-invalid @enderror" name="image" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <button type="submit" class="btn btn-primary ml-3 col-form-label">Edit Category</button>
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Edit Category</button>
                             </div>
                         </form>
                     </div>
