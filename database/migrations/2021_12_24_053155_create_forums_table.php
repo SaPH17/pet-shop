@@ -15,8 +15,8 @@ class CreateForumsTable extends Migration
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained();
-            $table->foreignUuid('pet_id')->constrained();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('pet_id')->constrained()->onDelete('cascade');
             $table->longText('text');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class CreatePetsTable extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignUuid('pet_category_id')->constrained();
+            $table->foreignUuid('pet_category_id')->constrained()->onDelete('cascade');
             $table->bigInteger('price');
             $table->string('description');
             $table->string('image');
