@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PetCategoryController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\TransactionController;
@@ -31,4 +32,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('category', PetCategoryController::class);
 Route::resource('pet', PetController::class);
+Route::resource('forum', ForumController::class)->only(['store', 'update', 'destroy']);
 

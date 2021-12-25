@@ -29,5 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-data', function (User $user) {
             return $user->email === 'admin@admin.com';
         });
+
+        Gate::define('edit-self-data', function(User $user, $data){
+            return $user->email === 'admin@admin.com' || $user->id === $data->user->id;
+        });
+
     }
 }

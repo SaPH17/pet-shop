@@ -24,4 +24,8 @@ class Pet extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function forums(){
+        return $this->hasMany(Forum::class)->orderBy('created_at', 'desc');
+    }
+
 }

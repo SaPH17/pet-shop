@@ -1,5 +1,15 @@
 @extends('layouts.app')
-
+@section('style-script')
+<script>
+    $(function () {
+        $('#toggle-update').on('click', function(){
+            $('#real-text').addClass('hidden')
+            $('#update-form').removeClass('hidden')
+            $(this).addClass('hidden')
+        })
+    });
+</script>
+@endsection
 @section('content')
     <div class="px-48">
         <div class="flex flex-col p-8 shadow-md bg-white rounded-md">
@@ -47,6 +57,40 @@
                 <div class="" >
                     dummy
                 </div>
+            </div>
+            {{-- Forum --}}
+            <div class="flex flex-col space-y-4">
+                <div>Forum</div>
+                <div class="flex flex-col space-y-4">
+                    @foreach ($pet->forums as $forum)
+                        <div class="flex flex-col space-y-1">
+                            <div>{{ $forum->user->username }} @if($forum->user->email === 'admin@admin.com') [Admin] @endif</div>
+                            <div id="real-text">{{ $forum->text }}</div>
+                            @can('edit-self-data', $forum)
+                                <div class="flex flex-row space-x-2">
+                                    <button id="toggle-update" type="button" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+                                    <form action="{{ route('forum.update', compact('forum')) }}" method="post" id="update-form" class="hidden">
+                                        @method('patch')
+                                        @csrf
+                                        <input type="text" name="text" value="{{ $forum->text }}">
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+                                    </form>
+                                    <form action="{{ route('forum.destroy', compact('forum')) }}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                                    </form>
+                                </div>
+                            @endcan
+                        </div>
+                    @endforeach
+                </div>
+                <form action="{{ route('forum.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="pet_id" value="{{ $pet->id }}">
+                    <input type="text" name="text" id="text" class="form-input">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                </form>
             </div>
         </div>
     </div>
