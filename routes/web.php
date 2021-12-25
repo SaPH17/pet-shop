@@ -32,5 +32,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('category', PetCategoryController::class);
 Route::resource('pet', PetController::class);
-Route::resource('forum', ForumController::class);
+Route::resource('forum', ForumController::class)->only(['store', 'update', 'destroy']);
 
