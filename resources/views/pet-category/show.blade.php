@@ -21,25 +21,25 @@
             </div>
         </form>
 
-        <div class="flex flex-wrap mt-5">
+        <div class="flex flex-wrap mt-5 justify-center">
             @foreach($pets as $pet)
-                <div class="flex flex-col bg-white rounded-lg shadow-md duration-150  overflow-hidden hover:shadow-xl m-2">
+                <div class="flex flex-col bg-white rounded-lg shadow-md duration-150 w-60 overflow-hidden hover:shadow-xl m-2 pb-2">
                     <a href="{{ route('pet.show', ['pet' => $pet]) }}" class="flex flex-col w-60">
                         <div class="h-60 w-60">
                             <img class="h-60 w-full object-cover" src="{{ Storage::url('public/pet/' . $pet->image) }}" alt="">
                         </div>
-                        <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-                            <div class="flex-1 flex flex-col space-y-2">
-                                <p class="text-xl font-semibold text-gray-900 text-center whitespace-normal">
+                        <div class="flex-1 bg-white  flex flex-col justify-between">
+                            <div class="flex-1 flex flex-col space-y-2 items-center">
+                                <p class="text-xl py-4 font-semibold text-gray-900 text-center whitespace-normal">
                                     {{$pet->name}}
                                 </p>
                                 @can('manage-data')
-                                        <button class="bg-blue-500 text-white px-4 py-2 w-full rounded" type="submit"><a
+                                        <button class="bg-blue-500 text-white px-4 py-2 w-3/4 rounded " type="submit"><a
                                                 href="{{ route('pet.edit', ['pet' => $pet]) }}">Update Pet</a></button>
-                                    <form method="post" action="{{ route('pet.destroy', ['pet' => $pet]) }}">
+                                    <form method="post" action="{{ route('pet.destroy', ['pet' => $pet]) }}" class="flex w-full justify-center items-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="bg-red-500 text-white px-4 py-2 w-full rounded" type="submit">Delete Pet</button>
+                                        <button class="bg-red-500 text-white px-4 py-2 w-3/4 rounded" type="submit">Delete Pet</button>
                                     </form>
                                 @endcan
                             </div>

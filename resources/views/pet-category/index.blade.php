@@ -10,7 +10,7 @@
             Take a look at our pet category
         </div>
 
-        <div class="flex flex-wrap mt-5">
+        <div class="flex flex-wrap mt-5 justify-center">
             @foreach($categories as $category)
                 <div class="flex flex-col rounded-lg shadow-md duration-150 overflow-hidden hover:shadow-xl m-2">
                     <a href="{{ route('category.show', ['category' => $category]) }}" class="flex flex-col ">
@@ -39,6 +39,7 @@
                 </div>
             @endforeach
         </div>
+
 
         <div class="d-flex justify-content-center">
             <div>
