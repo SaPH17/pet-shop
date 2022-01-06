@@ -15,7 +15,7 @@
                 <div class="flex flex-col rounded-lg shadow-md duration-150 overflow-hidden hover:shadow-xl m-2">
                     <a href="{{ route('category.show', ['category' => $category]) }}" class="flex flex-col ">
                         <div class="h-60 w-60">
-                            <img class="h-60 w-full object-cover" src="{{$PUBLIC_FOLDER_URL}}/{{$category->image}}" alt="">
+                            <img class="h-60 w-full object-cover" src="{{$PUBLIC_FOLDER_URL}}/category/{{$category->image}}" alt="">
                         </div>
                         <div class="flex-1 bg-white p-6 flex flex-col">
                             <div class="flex-1 flex flex-col space-y-2">

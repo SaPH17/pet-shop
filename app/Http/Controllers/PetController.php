@@ -47,7 +47,7 @@ class PetController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20',
-            'pet_category_id' => 'integer|required|exists:pet_categories,id',
+            'pet_category_id' => 'required|exists:pet_categories,id',
             'price' => 'integer|required|min:5',
             'description' => 'required|min:20',
             'image' => 'required|mimes:png,jpg'
@@ -96,7 +96,7 @@ class PetController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:20',
-            'pet_category_id' => 'integer|required|exists:pet_categories,id',
+            'pet_category_id' => 'required|exists:pet_categories,id',
             'price' => 'integer|required|min:5',
             'description' => 'required|min:20',
             'image' => 'required|mimes:png,jpg'

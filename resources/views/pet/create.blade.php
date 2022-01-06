@@ -19,7 +19,7 @@
                             <div class="form-group row">
                                 <label class="block text-sm font-medium text-gray-700" for="name">Pet Name : </label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="my-4 w-full form-input  @error('name') is-invalid @enderror" name="name">
+                                    <input id="name" type="text" class="my-4 w-full form-input  @error('name') border-red-500 @enderror" name="name">
 
                                 </div>
                             </div>
@@ -39,27 +39,28 @@
                             <div class="form-group row">
                                 <label class="block text-sm font-medium text-gray-700 col-form-label" for="price">Pet Price : </label>
                                 <div class="col-md-6">
-                                    <input id="price" type="number" class="my-4 w-full  form-input @error('price') is-invalid @enderror" name="price">
+                                    <input id="price" type="number" class="my-4 w-full form-input @error('price') border-red-500  @enderror" name="price">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="block text-sm font-medium text-gray-700 col-form-label" for="description">Pet Description : </label>
                                 <div class="col-md-6">
-                                    <input id="description" type="text" class="my-4 w-full  form-input @error('description') is-invalid @enderror" name="description">
+                                    <input id="description" type="text" class="my-4 w-full form-input @error('description') border-red-500 @enderror" name="description">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="block text-sm font-medium text-gray-700 col-form-label" for="image">Pet Image : </label>
                                 <div class="col-md-6">
-                                    <input id="image" type="file" class="my-4 w-full  form-input @error('image') is-invalid @enderror" name="image">
+                                    <input id="image" type="file" class="my-4 w-full form-input @error('image') border-red-500 @enderror" name="image">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <button type="submit" class="bg-blue-500 text-white px-4 py-3 w-full mt-2 rounded">Add Pet</button>
                             </div>
+                            
                         </form>
                     </div>
                 </div>

@@ -48,9 +48,6 @@ class PetCategoryController extends Controller
      */
     public function store(Request $request)
     {
-
-        dd($this->PUBLIC_FOLDER_URL);
-
         $validated = $request->validate([
             'name' => 'required|max:20',
             'image' => 'required|mimes:png,jpg'
@@ -58,6 +55,7 @@ class PetCategoryController extends Controller
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
         $request->file('image')->storeAs('public/category', $imageName);
+        // $request->file('image')->move(public_path() . '/asset',  $imageName);
 
         PetCategory::create([
             'name' => $validated['name'],
@@ -114,6 +112,7 @@ class PetCategoryController extends Controller
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
         $request->file('image')->storeAs('public/category', $imageName);
+        // $request->file('image')->move(public_path() . '/asset',  $imageName);
 
         if (Storage::exists('public/category/' . $category->image)){
             Storage::delete('public/category/' . $category->image);
@@ -137,6 +136,7 @@ class PetCategoryController extends Controller
         if (Storage::exists('public/category/' . $category->image)){
             Storage::delete('public/category/' . $category->image);
         }
+
         $category->delete();
         return redirect()->route('home');
     }

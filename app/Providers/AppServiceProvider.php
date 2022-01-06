@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('PUBLIC_FOLDER_URL', "/asset");
+        View::share('PUBLIC_FOLDER_URL', "/storage/public");
     }
 }

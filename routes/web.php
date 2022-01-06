@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PetCategoryController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\StorageController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,8 @@ Route::resource('category', PetCategoryController::class);
 Route::resource('pet', PetController::class);
 Route::resource('forum', ForumController::class)->only(['store', 'update', 'destroy']);
 
+Route::prefix('storage')->group(function () {
+    Route::name('storage.')->group(function () {
+        Route::get('/{filename}', [StorageController::class, 'download'])->where('filename', '.*')->name('download');
+    });
+});
