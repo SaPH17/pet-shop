@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PetCategoryController extends Controller
 {
+
     public function __construct()
     {
+        parent::__construct();
         $this->middleware(['auth', 'can:manage-data'])->except(['show', 'index']);
     }
 
@@ -53,6 +55,7 @@ class PetCategoryController extends Controller
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
         $request->file('image')->storeAs('public/category', $imageName);
+        // $request->file('image')->move(public_path() . '/asset',  $imageName);
 
         PetCategory::create([
             'name' => $validated['name'],
@@ -109,6 +112,7 @@ class PetCategoryController extends Controller
 
         $imageName = time() . '_' . Auth::user()->id . '.' . $request->image->getClientOriginalExtension();
         $request->file('image')->storeAs('public/category', $imageName);
+        // $request->file('image')->move(public_path() . '/asset',  $imageName);
 
         if (Storage::exists('public/category/' . $category->image)){
             Storage::delete('public/category/' . $category->image);
@@ -132,6 +136,7 @@ class PetCategoryController extends Controller
         if (Storage::exists('public/category/' . $category->image)){
             Storage::delete('public/category/' . $category->image);
         }
+
         $category->delete();
         return redirect()->route('home');
     }

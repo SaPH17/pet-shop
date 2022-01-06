@@ -25,7 +25,7 @@
         <div class="flex flex-col p-8 shadow-md bg-white rounded-md">
             <div class="flex flex-row">
                 <div>
-                    <img class="h-72 object-cover rounded-lg" src="{{ Storage::url('public/pet/' . $pet->image) }}" alt="">
+                    <img class="h-72 object-cover rounded-lg" src="{{$PUBLIC_FOLDER_URL}}/pet/{{$pet->image}}" alt="">
                 </div>
                 <div class="mx-5 w-100 flex flex-col">
                     <p class="text-3xl font-bold">
@@ -52,23 +52,6 @@
                     @endcan
                 </div>
             </div>
-{{--            <div class="mt-8">--}}
-{{--                <div class="text-2xl font-bold mb-4">--}}
-{{--                    Tips & Tricks--}}
-{{--                </div>--}}
-{{--                <div class="" >--}}
-{{--                    dummy--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="mt-8">--}}
-{{--                <div class="text-2xl font-bold mb-4">--}}
-{{--                    Reviews--}}
-{{--                </div>--}}
-{{--                <div class="" >--}}
-{{--                    dummy--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            {{-- Forum --}}
             <div class="flex flex-col space-y-4 mt-8">
                 <h2><b>Forum</b></h2>
                 <div class="flex flex-col space-y-4">

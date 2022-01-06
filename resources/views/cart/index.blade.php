@@ -5,7 +5,7 @@
         @foreach($carts as $cart)
             <li class="media mb-6 p-10  rounded-lg list-none flex items-center bg-white shadow-lg">
                 <div class="h-20 w-20">
-                    <img src="{{ Storage::url('public/pet/' . $cart->pet->image) }}" class=" h-20 object-cover rounded-xl" alt="" >
+                    <img src="{{$PUBLIC_FOLDER_URL}}/pet/{{$cart->pet->image}}" class=" h-20 object-cover rounded-xl" alt="" >
                 </div>
 
                 <div class="media-body ml-3">
