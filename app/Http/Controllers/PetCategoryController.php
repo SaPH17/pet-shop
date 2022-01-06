@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PetCategoryController extends Controller
 {
+
     public function __construct()
     {
+        parent::__construct();
         $this->middleware(['auth', 'can:manage-data'])->except(['show', 'index']);
     }
 
@@ -46,6 +48,9 @@ class PetCategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($this->PUBLIC_FOLDER_URL);
+
         $validated = $request->validate([
             'name' => 'required|max:20',
             'image' => 'required|mimes:png,jpg'

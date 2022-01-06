@@ -26,7 +26,7 @@
                 <div class="flex flex-col bg-white rounded-lg shadow-md duration-150 w-60 overflow-hidden hover:shadow-xl m-2 pb-2">
                     <a href="{{ route('pet.show', ['pet' => $pet]) }}" class="flex flex-col w-60">
                         <div class="h-60 w-60">
-                            <img class="h-60 w-full object-cover" src="{{ Storage::url('public/pet/' . $pet->image) }}" alt="">
+                            <img class="h-60 w-full object-cover" src="{{$PUBLIC_FOLDER_URL}}/{{$pet->image}}" alt="">
                         </div>
                         <div class="flex-1 bg-white  flex flex-col justify-between">
                             <div class="flex-1 flex flex-col space-y-2 items-center">

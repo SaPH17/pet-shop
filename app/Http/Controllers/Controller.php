@@ -10,4 +10,10 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected $PUBLIC_FOLDER_URL;
+
+    public function __construct()
+    {
+        $this->PUBLIC_FOLDER_URL = '/asset';
+    }
 }

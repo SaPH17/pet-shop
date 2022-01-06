@@ -6,7 +6,7 @@
 
             <li class="media mb-6 p-10  rounded-lg list-none flex items-center bg-white shadow-lg w-1/2">
                 <div class="h-20 w-20">
-                    <img src="{{ Storage::url('public/pet/' . $detail->pet->image) }}" class=" h-20 object-cover rounded-xl" alt="" >
+                    <img src="{{$PUBLIC_FOLDER_URL}}/{{$detail->pet->image}}" class=" h-20 object-cover rounded-xl" alt="" >
                 </div>
                 <div class="media-body ml-3">
                     <h4 class="mt-0 mb-1 font-weight-bold">{{ $detail->pet->name }}</h4>
