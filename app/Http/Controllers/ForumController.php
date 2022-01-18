@@ -38,9 +38,12 @@ class ForumController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'text' => 'required',
+            'textAdd' => 'required',
             'pet_id' => 'required|exists:pets,id'
         ]);
+
+        $validated['text'] = $validated['textAdd'];
+        unset($validated['textAdd']);
 
         $validated['user_id'] = Auth::user()->id;
 

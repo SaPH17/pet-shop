@@ -82,6 +82,7 @@ class PetController extends Controller
     public function edit(Pet $pet)
     {
         $categories = PetCategory::all();
+        $pet->load('pet_category');
         return view('pet.edit', compact('pet', 'categories'));
     }
 

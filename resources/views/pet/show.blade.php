@@ -87,7 +87,7 @@
                                                         <form action="{{ route('forum.update', compact('forum')) }}" method="post" id="update-form" class="hidden flex items-center flex-1">
                                                             @method('patch')
                                                             @csrf
-                                                            <textarea name="text" id="" cols="30" rows="3" placeholder="Comment Here.." class="form-input flex flex-1 w-full"></textarea>
+                                                            <textarea name="text" id="" cols="30" rows="3" placeholder="Comment Here.." class="form-input flex flex-1 w-full">{{old('text', $forum->text)}}</textarea>
     
                                                             <button type="submit" id="update-btn"></button>
                                                         </form>
@@ -127,7 +127,7 @@
                 <form action="{{ route('forum.store') }}" class="flex w-full space-x-2" method="post">
                     @csrf
                     <input type="hidden" name="pet_id" value="{{ $pet->id }}">
-                    <textarea name="text" id="text" cols="30" rows="3" placeholder="Comment Here.." class="form-input flex flex-1"></textarea>
+                    <textarea name="textAdd" id="text" cols="30" rows="3" placeholder="Comment Here.." class="form-input flex flex-1">{{old('text')}}</textarea>
                     <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded h-10">Send</button>
                 </form>
             </div>

@@ -18,7 +18,8 @@
                             <div class="form-group row">
                                 <label class="block text-sm font-medium text-gray-700 col-form-label" for="name">Category Name : </label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="my-4 w-full form-input @error('name') border-red-500  @enderror" name="name" required>
+                                    <input id="name" type="text" class="my-4 w-full form-input @error('name') border-red-500  @enderror" 
+                                        name="name" value="{{old('name', $category->name)}}" required>
 
                                 </div>
                             </div>
