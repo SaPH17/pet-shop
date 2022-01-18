@@ -39,7 +39,7 @@
                                     <form method="post" action="{{ route('pet.destroy', ['pet' => $pet]) }}" class="flex w-full justify-center items-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="bg-red-500 text-white px-4 py-2 w-3/4 rounded" type="submit">Delete Pet</button>
+                                        <button class="bg-red-500 text-white px-4 py-2 w-3/4 rounded" type="submit" onclick="return confirm('Are you sure you want to delete?')">Delete Pet</button>
                                     </form>
                                 @endcan
                             </div>

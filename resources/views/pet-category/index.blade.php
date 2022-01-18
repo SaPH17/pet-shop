@@ -29,7 +29,7 @@
                                                                 <form method="post" action="{{ route('category.destroy', ['category' => $category]) }}" class="w-full">
                                                                     @method('delete')
                                                                     @csrf
-                                    <button class="bg-red-500 text-white px-4 py-2 w-full rounded" type="submit">Delete Category</button>
+                                    <button class="bg-red-500 text-white px-4 py-2 w-full rounded" type="submit" onclick="return confirm('Are you sure you want to delete?')">Delete Category</button>
                                                                 </form>
                                 @endcan
 

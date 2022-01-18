@@ -17,6 +17,7 @@
     <link href="{{ url('/css/app.css') }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="{{asset("js/layout.js")}}"></script>
     @yield('style-script')
 
 </head>
@@ -97,7 +98,8 @@
                                 </div>
                                 <div class="ml-4 flex-shrink-0 flex">
                                     <button
-                                        class="close-btn bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                        class="close-btn bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                                        onclick="dismissNotif(this)">
                                         <span class="sr-only">Close</span>
                                         <!-- Heroicon name: solid/x -->
                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -115,6 +117,6 @@
             @endif
         </div>
     </div>
-    
+
 </body>
 </html>
